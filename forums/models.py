@@ -19,6 +19,9 @@ class Forum(models.Model):
 			self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
 		super(Forum, self).save(*args, **kwargs)
 
+	def get_absolute_url(self):
+		return reverse('forums-path:forum-list')	
+
 	def __str__(self):
 		return self.title
 
@@ -29,7 +32,7 @@ class Comment(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	def get_absolute_url(self):
-		return reverse('forum-list')
+		return reverse('forums-path:forum-list')
 
 class Profile(models.Model):
 	user 	= models.OneToOneField(User, on_delete=models.CASCADE)

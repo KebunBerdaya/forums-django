@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 class ForumListView(ListView):
 	model = Forum
 	queryset = Forum.objects.order_by('-created_at')
-	paginate_by = 2
+	paginate_by = 8
 
 class ForumUserListView(ListView):
 	template_name = 'forums/forum_by_user.html'

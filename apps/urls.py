@@ -7,5 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('account.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('forum/', include('forums.urls', namespace='forums-path'))
+    path('forum/', include('forums.urls', namespace='forums-path'),name='forum')
 ]
