@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load humanize %}
-
+{% load staticfiles %}
 {% block title %} List Forum{% endblock %}
 
 {% block content %}
@@ -13,12 +13,57 @@
 </div>
 {% endif %}
 <div class="jumbotron">
-  <h1>Forums</h1> <a class="btn btn-success btn-sm" href="{% url 'forums-path:forum-add'%}" role="button">Buat Forum Diskusi</a>
- 	<ul>
- 		{% for forum in object_list %}
- 			<li><a href="{% url 'forums-path:forum-detail' forum.slug %}"><b>{{forum.title}}</b></a> <br> Oleh: <a href="{% url 'forums-path:forum-by' forum.user %}">{{forum.user}}</a> | <span style="font-size: 12px;"><i>{{forum.created_at | naturaltime}}</i></span></li><br>
- 		{% endfor %}
- 	</ul>
- 	{% include 'snippets/pagination.html' %}
+	<section id="profilesInfo">
+		<div class="container">
+		  <div class="row">
+			<div class="col-lg-4 text-center">
+			  <div>
+				
+			  <img id="avatarCSS" src="{% static 'asset/avatar.png' %}" width="250" height="250" class="rounded-circle" alt="profilePictures"></div>
+			</div>
+			<div class="col-lg-8">
+			  <div>
+				<br><br>
+				  <h1><span><b>{{user}}</b></span></h1>
+			  </div>
+			  <div>
+				  <h2><b>{{user.first_name}} {{user.last_name}}</b></h2>
+			  </div>
+			 
+			</div>
+		  </div>
+		</div>
+	  </section>
+	  
+  <h1 class="text-center">Forum Kebun Berdaya</h1><br> <a class="btn btn-success btn-sm" style="align-items: center;" href="{% url 'forums-path:forum-add'%}" role="button">Buat Forum Diskusi</a> <br> <br> <br>
+  {% for forum in object_list %}
+  <div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center"> <img src="{% static 'asset/avatar.png' %}" class="d-block ui-w-40 rounded-circle" alt="picture" style="width:100px;">
+                        <div class="media-body ml-3"> <a href="{% url 'forums-path:forum-by' forum.user %}">{{forum.user}}</a>
+                            <div class="text-muted small">{{forum.created_at | naturaltime}}</div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="card-body">
+                  <h3><a href="{% url 'forums-path:forum-detail' forum.slug %}"></a><b>{{forum.title}}</b></h3>
+                    <p> {{forum.desc}}
+                    </p>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <div class="px-4 pt-3"> <a href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true"> <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">445</span> </a> <span class="text-muted d-inline-flex align-items-center align-middle ml-4"> <i class="fa fa-eye text-muted fsize-3"></i>&nbsp; <span class="align-middle">14532</span> </span> </div>
+                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary"><i class="ion ion-md-create"></i> Balas</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endfor %}
+{% include 'snippets/pagination.html' %}
+ 	 
 </div>
 {% endblock%}
